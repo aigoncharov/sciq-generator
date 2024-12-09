@@ -18,7 +18,7 @@ if __name__ == "__main__":
     generator.save_pretrained("./fine_tuned_generator")
     tokenizer.save_pretrained("./fine_tuned_generator")
     torch.save(classifier.state_dict(), "./fine_tuned_classifier.pth")
-    print("Fine-tuned models saved.")
+    print("Fine-tuned models saved.\n")
 
     generator.eval()
     with open("questions.txt", "w") as questions:
@@ -26,5 +26,5 @@ if __name__ == "__main__":
             print(f"Generating question {i}/{len(complex_topics)}")
             question = generate_question(generator, tokenizer, item["topic"])
             questions.write(question)
-            questions.write("--------------------------------\n")
+            questions.write("\n\n--------------------------------\n\n")
     print("Done!")
