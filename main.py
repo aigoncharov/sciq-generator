@@ -1,29 +1,20 @@
-from model import model, tokenizer
+import torch
+from train_classifier import train_classifier
+from train_generator import train_generator
+from model import generator, tokenizer
+from classifier import classifier
+from training_data import complex_questions
 
-prompt = "My favourite condiment is"
 
-messages = [
-    {"role": "user", "content": "What is your favourite condiment?"},
-    {
-        "role": "assistant",
-        "content": "Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!",
-    },
-    {"role": "user", "content": "Do you have mayonnaise recipes?"},
-]
+if __name__ == "__main__":
+    # First train the classifier
+    train_classifier(generator, classifier, tokenizer, complex_questions, epochs=10)
 
-formatted_prompt = ""
-for message in messages:
-    if message["role"] == "user":
-        formatted_prompt += f"User: {message['content']}\n"
-    else:
-        formatted_prompt += f"Assistant: {message['content']}\n"
-formatted_prompt += "Assistant: "
+    # Then train the generator
+    train_generator(generator, classifier, tokenizer, complex_questions, epochs=3)
 
-inputs = tokenizer(formatted_prompt, return_tensors="pt")
-input_ids = inputs["input_ids"].to("mps")
-attention_mask = inputs["attention_mask"].to("mps")
-
-generated_ids = model.generate(input_ids, attention_mask=attention_mask, max_new_tokens=100, do_sample=True)
-response = tokenizer.batch_decode(generated_ids)[0]
-
-print(response)
+    # Save models
+    generator.save_pretrained("./fine_tuned_generator")
+    tokenizer.save_pretrained("./fine_tuned_generator")
+    torch.save(classifier.state_dict(), "./fine_tuned_classifier.pth")
+    print("Fine-tuned models saved.")
