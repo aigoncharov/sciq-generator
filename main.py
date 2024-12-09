@@ -1,9 +1,9 @@
 import torch
-from train_classifier import train_classifier
-from train_generator import train_generator
-from model import generator, tokenizer
-from classifier import classifier
-from training_data import complex_questions
+from src.train_classifier import train_classifier
+from src.train_generator import train_generator
+from src.model import generator, tokenizer
+from src.classifier import classifier
+from src.training_data import complex_questions
 
 
 if __name__ == "__main__":

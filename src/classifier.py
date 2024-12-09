@@ -1,7 +1,7 @@
 import torch
 from torch import nn
-from model import generator
-from device import device
+from .model import generator
+from .device import device
 
 
 class ComplexityClassifier(nn.Module):

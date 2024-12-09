@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from device import device
+from .device import device
 
 generator_model_name = "mistralai/Mistral-7B-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(generator_model_name)

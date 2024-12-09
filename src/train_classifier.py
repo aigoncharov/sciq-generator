@@ -1,7 +1,7 @@
 import torch
 from torch import nn, optim
-from utils import get_hidden_states
-from device import device
+from .utils import get_hidden_states
+from .device import device
 
 
 def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):

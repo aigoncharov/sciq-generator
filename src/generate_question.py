@@ -1,4 +1,4 @@
-from device import device
+from .device import device
 
 
 def generate_question(generator, tokenizer, topic, max_length=400):

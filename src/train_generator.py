@@ -1,9 +1,9 @@
 import torch
 from torch import nn, optim
 import numpy as np
-from utils import get_hidden_states
-from device import device
-from generate_question import generate_question
+from .utils import get_hidden_states
+from .device import device
+from .generate_question import generate_question
 
 
 def train_generator(generator, classifier, tokenizer, train_data, epochs=5):
