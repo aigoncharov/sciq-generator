@@ -1,6 +1,5 @@
 import torch
 from torch import nn, optim
-import numpy as np
 from .utils import get_hidden_states
 from .device import device
 from .generate_question import generate_question
@@ -13,16 +12,6 @@ def train_generator(generator, classifier, tokenizer, train_data, epochs=5):
 
     optimizer = optim.SGD(generator.parameters(), lr=1e-5)
     criterion = nn.MSELoss()
-
-    topics_complexities = {}
-    for item in train_data:
-        if topics_complexities.get(item["topic"], None) is None:
-            topics_complexities[item["topic"]] = []
-        topics_complexities[item["topic"]].append(item["complexity"])
-    train_data = [
-        {"topic": topic, "complexity": np.mean(np.array(complexities))}
-        for topic, complexities in topics_complexities.items()
-    ]
 
     print("\nTraining Generator...")
     for epoch in range(epochs):

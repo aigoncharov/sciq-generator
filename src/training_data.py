@@ -1,3 +1,5 @@
+import numpy as np
+
 complex_questions = [
     {"question": "Is morality objective or subjective?", "complexity": 0.8, "topic": "Philosophy & Ethics"},
     {
@@ -175,4 +177,15 @@ complex_questions = [
         "topic": "Miscellaneous",
     },
     {"question": "What does it mean to live a meaningful life?", "complexity": 0.8, "topic": "Miscellaneous"},
+]
+
+
+topics_complexities = {}
+for item in complex_questions:
+    if topics_complexities.get(item["topic"], None) is None:
+        topics_complexities[item["topic"]] = []
+    topics_complexities[item["topic"]].append(item["complexity"])
+complex_topics = [
+    {"topic": topic, "complexity": np.mean(np.array(complexities))}
+    for topic, complexities in topics_complexities.items()
 ]
