@@ -4,7 +4,7 @@ Mistral-7B fine-tuned to produce complex questions. Optimized using a custom cla
 
 ## Quick start
 
-> Test only on Apple Silicon
+> Tested only on Apple Silicon
 
 1. Install `poetry`
 2. `poetry install`
