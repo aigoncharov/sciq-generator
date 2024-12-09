@@ -24,7 +24,7 @@ if __name__ == "__main__":
     with open("questions.txt", "w") as questions:
         for i, item in enumerate(complex_topics, 1):
             print(f"Generating question {i}/{len(complex_topics)}")
-            question = generate_question(generator, tokenizer, item["topic"])
+            question = generate_question(generator, tokenizer, item["topic"], do_sample=False)
             questions.write(question)
-            questions.write("\n")
+            questions.write("--------------------------------\n")
     print("Done!")
