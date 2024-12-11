@@ -15,9 +15,11 @@ def benchmark_generator(out_filename):
 
     generator.eval()
     with open(out_filename, "w") as questions:
-        for i, item in enumerate(complex_topics, 1):
+        for i, item in enumerate(complex_topics):
             for j in range(1, Q_NUM_PER_TOPIC, 1):
-                print(f"Generating a pre-train question {i * j}/{len(complex_topics) * Q_NUM_PER_TOPIC}")
+                print(
+                    f"Generating a pre-train question {i * Q_NUM_PER_TOPIC + j}/{len(complex_topics) * Q_NUM_PER_TOPIC}"
+                )
                 question = generate_question(generator, tokenizer, item["topic"])
                 questions.write(question)
                 questions.write("\n\n--------------------------------\n\n")
