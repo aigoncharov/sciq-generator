@@ -12,19 +12,20 @@ def benchmark_generator(out_filename):
     print("Running generator benchmark...")
 
     length = len(complex_topics) * Q_NUM_PER_TOPIC
-    complexities = np.array(length)
+    complexities = np.zeros((length))
 
     generator.eval()
     with open(out_filename, "w") as questions:
         for i, item in enumerate(complex_topics):
             for j in range(Q_NUM_PER_TOPIC):
-                idx = i * Q_NUM_PER_TOPIC + j + 1
-                print(f"Generating a pre-train question {idx}/{length}")
+                idx = i * Q_NUM_PER_TOPIC + j
+                print(f"Generating question {idx + 1}/{length}")
                 question = generate_question(generator, tokenizer, item["topic"])
                 questions.write(question)
                 questions.write("\n\n--------------------------------\n\n")
 
                 complexity = estimate_question(generator, classifier, item["topic"], question)
-                complexities[idx] = complexity.cpu().numpy()
+                complexities[idx] = complexity.cpu().detach().numpy()
+                print(complexities[idx])
 
     return complexities
