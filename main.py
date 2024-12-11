@@ -10,7 +10,7 @@ from src.benchmark_generator import benchmark_generator
 
 if __name__ == "__main__":
     # First train the classifier
-    train_classifier(generator, classifier, tokenizer, complex_questions, epochs=10)
+    train_classifier(generator, classifier, complex_questions, epochs=10)
 
     complexities_pretrain = benchmark_generator("questions_pretrain.txt")
 

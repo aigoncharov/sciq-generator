@@ -4,12 +4,12 @@ from .device import device
 from .estimate_question import estimate_question
 
 
-def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):
+def train_classifier(generator, classifier, train_data, epochs=5):
     """Train only the classifier first"""
     classifier.train()
     generator.eval()  # Set generator to eval mode
 
-    optimizer = optim.SGD(classifier.parameters(), lr=1e-5)
+    optimizer = optim.SGD(classifier.parameters(), lr=1e-3)
     criterion = nn.MSELoss()
 
     print("Training Classifier...")
