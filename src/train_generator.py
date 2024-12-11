@@ -1,6 +1,6 @@
 import torch
 from torch import nn, optim
-from .utils import get_hidden_states
+from .estimate_question import estimate_question
 from .device import device
 from .generate_question import generate_question
 
@@ -19,9 +19,8 @@ def train_generator(generator, classifier, tokenizer, train_data, epochs=5):
         for item in train_data:
             # Generate question and get complexity score
             question = generate_question(generator, tokenizer, item["topic"])
-            hidden_states = get_hidden_states(generator, tokenizer, question)
 
-            complexity_score = classifier(hidden_states)
+            complexity_score = estimate_question(generator, classifier, item["topic"], question)
 
             # Train generator to match target complexity
             target_complexity = torch.tensor([[item["complexity"]]], dtype=torch.float16).to(device)

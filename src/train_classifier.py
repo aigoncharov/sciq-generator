@@ -1,7 +1,7 @@
 import torch
 from torch import nn, optim
-from .utils import get_hidden_states
 from .device import device
+from .estimate_question import estimate_question
 
 
 def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):
@@ -16,12 +16,8 @@ def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):
     for epoch in range(epochs):
         total_loss = 0.0
         for item in train_data:
-            # Get hidden states
-            hidden_states = get_hidden_states(generator, tokenizer, item["question"])
-
-            # Train classifier
+            complexity_score = estimate_question(generator, classifier, item["topic"], item["question"])
             target_complexity = torch.tensor([[item["complexity"]]], dtype=torch.float16).to(device)
-            complexity_score = classifier(hidden_states)
 
             loss = criterion(complexity_score, target_complexity)
             optimizer.zero_grad()
@@ -32,3 +28,6 @@ def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):
 
         avg_loss = total_loss / len(train_data)
         print(f"Classifier Epoch {epoch + 1} Average Loss: {avg_loss:.4f}")
+
+
+ч
