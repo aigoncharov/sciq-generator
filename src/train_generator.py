@@ -22,8 +22,8 @@ def train_generator(generator, classifier, tokenizer, train_data, epochs=5):
 
             complexity_score = estimate_question(generator, classifier, item["topic"], question)
 
-            # Train generator to match target complexity
-            target_complexity = torch.tensor([[item["complexity"]]], dtype=torch.float16).to(device)
+            # Train generator to maximize complexity
+            target_complexity = torch.tensor([[1]], dtype=torch.float16).to(device)
             loss = criterion(complexity_score, target_complexity)
 
             optimizer.zero_grad()
