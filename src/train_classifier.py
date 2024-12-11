@@ -28,6 +28,3 @@ def train_classifier(generator, classifier, tokenizer, train_data, epochs=5):
 
         avg_loss = total_loss / len(train_data)
         print(f"Classifier Epoch {epoch + 1} Average Loss: {avg_loss:.4f}")
-
-
-ч
