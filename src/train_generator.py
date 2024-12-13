@@ -5,7 +5,7 @@ from .device import device
 from .generate_question import generate_question
 
 
-def train_generator(generator, classifier, tokenizer, train_data, epochs=5):
+def train_generator(generator, classifier, tokenizer, train_data, epochs=10):
     """Train the generator using the trained classifier"""
     generator.train()
     classifier.eval()  # Freeze classifier

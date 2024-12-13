@@ -4,7 +4,7 @@ from .device import device
 from .estimate_question import estimate_question
 
 
-def train_classifier(generator, classifier, train_data, epochs=5):
+def train_classifier(generator, classifier, train_data, epochs=50):
     """Train only the classifier first"""
     classifier.train()
     generator.eval()  # Set generator to eval mode
