@@ -20,7 +20,7 @@ def train_generator(generator, classifier, tokenizer, train_data, epochs=10):
             # Generate question and get complexity score
             question = generate_question(generator, tokenizer, item["topic"], train=True)
 
-            complexity_score = estimate_question(generator, classifier, item["topic"], question)
+            complexity_score = estimate_question(generator, classifier, item["topic"], question, no_grad=False)
 
             # Train generator to maximize complexity
             target_complexity = torch.tensor([[1]], dtype=torch.float16).to(device)

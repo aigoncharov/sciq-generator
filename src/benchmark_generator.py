@@ -5,7 +5,7 @@ from .classifier import classifier
 from .generate_question import generate_question
 from .estimate_question import estimate_question
 
-Q_NUM_PER_TOPIC = 2
+Q_NUM_PER_TOPIC = 10
 
 
 def benchmark_generator(out_filename):
