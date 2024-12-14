@@ -20,7 +20,7 @@ def train_generator(generator, classifier, epochs=10):
         questions = create_benchmark_sample()
 
         for q_idx, question in enumerate(questions):
-            print(f"Generator Epoch {epoch + 1}, question {q_idx + 1}/{len(questions)} ...")
+            # print(f"Generator Epoch {epoch + 1}, question {q_idx + 1}/{len(questions)} ...")
 
             complexity_score = estimate_question(
                 generator, classifier, question["topic"], question["question"], no_grad=False
