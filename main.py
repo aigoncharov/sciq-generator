@@ -10,12 +10,12 @@ from src.benchmark_generator import benchmark_generator
 
 if __name__ == "__main__":
     # First train the classifier
-    train_classifier(generator, classifier, complex_questions, epochs=30)
+    train_classifier(generator, classifier, complex_questions, epochs=20)
 
     complexities_pretrain = benchmark_generator("questions_pretrain.txt")
 
     # Then train the generator
-    train_generator(generator, classifier, epochs=10)
+    train_generator(generator, classifier, epochs=5)
     generator.save_pretrained("./fine_tuned_generator")
     tokenizer.save_pretrained("./fine_tuned_generator")
     torch.save(classifier.state_dict(), "./fine_tuned_classifier.pth")
