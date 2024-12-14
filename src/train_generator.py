@@ -10,7 +10,7 @@ def train_generator(generator, classifier, epochs=10):
     generator.train()
     classifier.eval()  # Freeze classifier
 
-    optimizer = optim.SGD(generator.parameters(), lr=1e-3)
+    optimizer = optim.SGD(generator.parameters(), lr=1e-4)
     criterion = nn.MSELoss()
 
     print("\nTraining Generator...")
