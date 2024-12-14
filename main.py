@@ -4,7 +4,7 @@ from src.train_classifier import train_classifier
 from src.train_generator import train_generator
 from src.model import generator, tokenizer
 from src.classifier import classifier
-from src.training_data import complex_questions, complex_topics
+from src.training_data import complex_questions
 from src.benchmark_generator import benchmark_generator
 
 
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     complexities_pretrain = benchmark_generator("questions_pretrain.txt")
 
     # Then train the generator
-    train_generator(generator, classifier, tokenizer, complex_topics, epochs=10)
+    train_generator(generator, classifier, epochs=10)
     generator.save_pretrained("./fine_tuned_generator")
     tokenizer.save_pretrained("./fine_tuned_generator")
     torch.save(classifier.state_dict(), "./fine_tuned_classifier.pth")

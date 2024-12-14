@@ -8,6 +8,17 @@ from .estimate_question import estimate_question
 Q_NUM_PER_TOPIC = 10
 
 
+def create_benchmark_sample():
+    questions = []
+
+    for i, item in enumerate(complex_topics):
+        for j in range(Q_NUM_PER_TOPIC):
+            question = generate_question(generator, tokenizer, item["topic"])
+            questions.append({"topic": item["topic"], "question": question})
+
+    return questions
+
+
 def benchmark_generator(out_filename):
     print("Running generator benchmark...")
 
@@ -15,17 +26,16 @@ def benchmark_generator(out_filename):
     complexities = np.zeros((length))
 
     generator.eval()
-    with open(out_filename, "w") as questions:
-        for i, item in enumerate(complex_topics):
-            for j in range(Q_NUM_PER_TOPIC):
-                idx = i * Q_NUM_PER_TOPIC + j
-                print(f"Generating question {idx + 1}/{length}")
-                question = generate_question(generator, tokenizer, item["topic"])
-                questions.write(question)
-                questions.write("\n\n--------------------------------\n\n")
 
-                complexity = estimate_question(generator, classifier, item["topic"], question)
-                complexities[idx] = complexity.cpu().detach().numpy()
-                print(complexities[idx])
+    questions = create_benchmark_sample()
+
+    with open(out_filename, "w") as questions_out:
+        for idx, question in enumerate(questions):
+            complexity = estimate_question(generator, classifier, question["topic"], question["question"])
+            complexities[idx] = complexity.cpu().detach().numpy()
+
+            questions_out.write(
+                f"Topic: {question["topic"]}\nQuestion: {question["question"]}\n\n--------------------------------\n\n"
+            )
 
     return complexities

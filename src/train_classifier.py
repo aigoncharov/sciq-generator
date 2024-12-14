@@ -27,4 +27,4 @@ def train_classifier(generator, classifier, train_data, epochs=50):
             total_loss += loss.item()
 
         avg_loss = total_loss / len(train_data)
-        print(f"Classifier Epoch {epoch + 1} Average Loss: {avg_loss:.4f}")
+        print(f"Classifier Epoch {epoch + 1} Average Loss: {avg_loss:.6f}")
